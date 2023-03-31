@@ -15,6 +15,7 @@ title = tk.Label(root, text="Login Window", font="Arial 20 bold",)
 
 userlbl = tk.Label(root,text="Username", font="Arial 13")
 passlbl = tk.Label(root,text="Password", font="Arial 13")
+succlbl = tk.Label(root,text="", font="Arial 13")
 userEntry = tk.Entry(root)
 passEntry = tk.Entry(root, show="*")
 loginButton = tk.Button(root, text="Login")
@@ -31,6 +32,7 @@ userEntry.grid(column=2,row=1, sticky="E")
 passEntry.grid(column=2,row=2, sticky="E")
 loginButton.grid(column=1,row=3, sticky="NSEW")
 exitButton.grid(column=2,row=3, sticky="NSEW")
+succlbl.grid(column=0,row=4, sticky="NSEW")
 
 def update_camera():
     ret, frame = cap.read()
@@ -55,6 +57,14 @@ def capture_frame():
         label.config(image=img_tk)
 # Start the tkinter main loop
 
+def credentialsMatch(username,passW) :
+    if (username == "Charles"):
+        if(passW == "12345"):
+            infoScreen()
+        else:
+             succlbl.config(text="Invalid Credentials", fg="red")   
+    else:
+        succlbl.config(text="Invalid Credentials", fg="red")        
 
      
         
@@ -90,7 +100,9 @@ def infoScreen():
     
    
     
-loginButton.config(command=infoScreen)
+loginButton.config(command= lambda: credentialsMatch(userEntry.get(),passEntry.get()))
+
+exitButton.config(command=exit)
     
 root.mainloop()
 
